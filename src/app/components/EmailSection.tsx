@@ -5,34 +5,9 @@ import GitHubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { POST } from "../api/send/route";
+
 
 const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const handleSubmit = async(e:any) => {
-    e.preventDefault();
-    const data = {
-        email: e.target.email.value,
-        subject: e.target.subject.value,
-        message: e.target.message.value
-    };
-    const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSONdata
-    }
-    const response = await fetch(endpoint, options)
-    const resData = await response.json();
-
-    if (response.status === 200) {
-        console.log("Message sent.")
-        setEmailSubmitted(true)
-    };
-  };
 
 
 
@@ -56,7 +31,7 @@ const EmailSection = () => {
         </div>
       </div>
       <div>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col">
           <div className="mb-6">
             <label
               htmlFor="email"
@@ -102,11 +77,6 @@ const EmailSection = () => {
               />
           </div>
           <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg w-full">Send Message</button>
-          {
-            emailSubmitted && (
-                <p className="text-green-500 text-sm mt-2">Email sent successfully!</p>
-            )
-          }
         </form>
       </div>
     </section>
